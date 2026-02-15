@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:unsplash.com)",
+      "WebFetch(domain:www.pexels.com)",
+      "WebFetch(domain:images.unsplash.com)",
+      "WebFetch(domain:tutorials.sitecast.com)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:www.educative.io)",
+      "Bash(curl:*)",
+      "Bash(git -C \"c:/Users/Noah/Documents/Woodworking\" config user.name)",
+      "Bash(git -C \"c:/Users/Noah/Documents/Woodworking\" config user.email)",
+      "Bash(gh auth status:*)",
+      "Bash(where:*)",
+      "Bash(winget install:*)",
+      "Bash(export PATH=\"/c/Program Files/GitHub CLI:$PATH\")",
+      "Bash(gh:*)",
+      "Bash(git -C \"c:/Users/Noah/Documents/Woodworking\" init)",
+      "Bash(git -C \"c:/Users/Noah/Documents/Woodworking\" add index.html styles.css script.js)",
+      "Bash(git -C \"c:/Users/Noah/Documents/Woodworking\" status)",
+      "Bash(git -C:*)"
+    ]
+  }
+}
