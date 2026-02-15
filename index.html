@@ -5,6 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Heartwood Lumber Co. — Live Edge Slabs & Custom Milling</title>
   <meta name="description" content="Premium live edge slabs, custom milling, and hardwood lumber direct to your door. From forest to finished piece.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Heartwood Lumber Co. — Live Edge Slabs & Custom Milling">
+  <meta property="og:description" content="Premium live edge slabs, custom milling, and hardwood lumber sold direct to you. From forest to finished piece.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1702195789139-4897ff9b0083?w=1200&q=80">
+  <meta property="og:url" content="https://noahthemeh.github.io/heartwood-lumber-site/">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Heartwood Lumber Co. — Live Edge Slabs & Custom Milling">
+  <meta name="twitter:description" content="Premium live edge slabs, custom milling, and hardwood lumber sold direct to you.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1702195789139-4897ff9b0083?w=1200&q=80">
+
+  <!-- Preload hero image -->
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1702195789139-4897ff9b0083?w=1600&q=80">
+
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -362,6 +382,24 @@
       </div>
     </div>
   </footer>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 13 10 8 5 13"/>
+    </svg>
+  </button>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close lightbox">&times;</button>
+    <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous image">&#8249;</button>
+    <button class="lightbox-next" id="lightboxNext" aria-label="Next image">&#8250;</button>
+    <div class="lightbox-content">
+      <img id="lightboxImg" src="" alt="">
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

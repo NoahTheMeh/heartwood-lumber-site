@@ -25,14 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Navbar scroll shadow ---
   const navbar = document.getElementById('navbar');
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-  });
-
 
   // --- Active nav link highlighting ---
   const sections = document.querySelectorAll('.section, .hero');
@@ -78,6 +70,76 @@ document.addEventListener('DOMContentLoaded', () => {
   animateElements.forEach(el => {
     el.classList.add('fade-in');
     fadeObserver.observe(el);
+  });
+
+
+  // --- Back to Top button ---
+  const backToTop = document.getElementById('backToTop');
+
+  // Combined scroll handler for navbar + back-to-top
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    navbar.classList.toggle('scrolled', y > 50);
+    backToTop.classList.toggle('visible', y > 600);
+  });
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+
+  // --- Lightbox ---
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const lightboxPrev = document.getElementById('lightboxPrev');
+  const lightboxNext = document.getElementById('lightboxNext');
+
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    const item = galleryItems[index];
+    const img = item.querySelector('.gallery-img');
+    const caption = item.querySelector('.gallery-caption');
+
+    // Use a higher-res version for the lightbox
+    lightboxImg.src = img.src.replace(/w=\d+/, 'w=1400');
+    lightboxImg.alt = img.alt;
+    lightboxCaption.textContent = caption ? caption.textContent : '';
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function navigate(direction) {
+    currentIndex = (currentIndex + direction + galleryItems.length) % galleryItems.length;
+    openLightbox(currentIndex);
+  }
+
+  galleryItems.forEach((item, index) => {
+    item.addEventListener('click', () => openLightbox(index));
+  });
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightboxPrev.addEventListener('click', () => navigate(-1));
+  lightboxNext.addEventListener('click', () => navigate(1));
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
   });
 
 
