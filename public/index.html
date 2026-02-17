@@ -45,7 +45,7 @@
       </button>
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
-        <li><a href="#products">Products</a></li>
+        <li><a href="#products">Inventory</a></li>
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#process">How It Works</a></li>
         <li><a href="#testimonials">Testimonials</a></li>
@@ -98,69 +98,19 @@
     </div>
   </section>
 
-  <!-- ===== PRODUCTS ===== -->
+  <!-- ===== INVENTORY ===== -->
   <section class="section products" id="products">
     <div class="container">
       <div class="section-header">
-        <h2>What We Offer</h2>
+        <h2>Current Inventory</h2>
         <div class="section-divider"></div>
-        <p class="section-subtitle">From raw slabs to finished mantels — we've got the wood for your project.</p>
+        <p class="section-subtitle">Browse our available stock. Prices and availability updated regularly.</p>
       </div>
-      <div class="products-grid">
-        <div class="product-card">
-          <img src="https://images.pexels.com/photos/82256/pexels-photo-82256.jpeg?auto=compress&w=800"
-            alt="Live edge wood slab with natural grain" class="product-img" loading="lazy">
-          <div class="product-info">
-            <h3>Live Edge Slabs</h3>
-            <p>Stunning natural-edge slabs perfect for dining tables, desks, coffee tables, and bar tops. Black walnut,
-              cherry, maple, and more.</p>
-          </div>
-        </div>
-        <div class="product-card">
-          <img src="https://images.unsplash.com/photo-1681752972950-6229ca099fbc?w=800&q=80"
-            alt="Stack of dimensional lumber boards" class="product-img" loading="lazy">
-          <div class="product-info">
-            <h3>Dimensional Lumber</h3>
-            <p>Kiln-dried hardwood boards in standard and custom dimensions. Perfect for cabinetry, trim, shelving, and
-              furniture projects.</p>
-          </div>
-        </div>
-        <div class="product-card">
-          <img src="https://images.unsplash.com/photo-1603039531759-1a1bbe4f9f94?w=800&q=80"
-            alt="Rustic wooden fireplace mantel" class="product-img" loading="lazy">
-          <div class="product-info">
-            <h3>Mantels & Beams</h3>
-            <p>Rustic fireplace mantels and decorative beams that bring warmth and character to any room. Custom lengths
-              and finishes available.</p>
-          </div>
-        </div>
-        <div class="product-card">
-          <img src="https://images.unsplash.com/photo-1641894028002-2a50a305766d?w=800&q=80"
-            alt="Cross-cut wood round showing tree rings" class="product-img" loading="lazy">
-          <div class="product-info">
-            <h3>Cookies & Rounds</h3>
-            <p>Cross-cut rounds ideal for centerpieces, wall art, cake stands, and rustic décor. Available in a range of
-              species and sizes.</p>
-          </div>
-        </div>
-        <div class="product-card">
-          <img src="https://images.unsplash.com/photo-1614874044863-95c6cc6b6cf3?w=800&q=80"
-            alt="Charcuterie board with food on wooden cutting board" class="product-img" loading="lazy">
-          <div class="product-info">
-            <h3>Charcuterie & Cutting Boards</h3>
-            <p>Food-safe hardwood blanks ready for finishing. Walnut, maple, and cherry — popular for gifts and small
-              business products.</p>
-          </div>
-        </div>
-        <div class="product-card">
-          <img src="https://images.pexels.com/photos/7790080/pexels-photo-7790080.jpeg?auto=compress&w=800"
-            alt="Sawmill cutting logs in the forest" class="product-img" loading="lazy">
-          <div class="product-info">
-            <h3>Custom Milling</h3>
-            <p>Bring us your logs or let us source them. We'll mill to your exact specs — thickness, width, length. Your
-              project, your dimensions.</p>
-          </div>
-        </div>
+      <div class="inventory-filters" id="inventoryFilters">
+        <!-- Filter buttons populated by JS from /api/categories -->
+      </div>
+      <div class="products-grid" id="inventoryGrid">
+        <p class="loading-message">Loading inventory...</p>
       </div>
     </div>
   </section>

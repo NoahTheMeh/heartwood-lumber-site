@@ -856,6 +856,102 @@ h1, h2, h3, h4 {
     width: 100%;
     max-width: 280px;
   }
+
+  .inventory-filters {
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+  }
+}
+
+
+/* ===========================
+   INVENTORY (Dynamic)
+   =========================== */
+
+/* --- Category Filter Buttons --- */
+.inventory-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  border: 1px solid var(--color-sand);
+  background: var(--color-white);
+  color: var(--color-warm);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  transition: all var(--transition);
+}
+
+.filter-btn:hover {
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+
+.filter-btn.active {
+  background: var(--color-green);
+  color: var(--color-white);
+  border-color: var(--color-green);
+}
+
+/* --- Price display on product cards --- */
+.product-price {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--color-green-dark);
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+/* --- Stock badge --- */
+.stock-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 10px;
+}
+
+.stock-badge.in-stock {
+  background: rgba(92, 122, 82, 0.15);
+  color: var(--color-green-dark);
+}
+
+.stock-badge.out-of-stock {
+  background: rgba(181, 101, 29, 0.15);
+  color: var(--color-accent);
+}
+
+/* --- Out-of-stock card dimming --- */
+.product-card.out-of-stock {
+  opacity: 0.7;
+}
+
+.product-card.out-of-stock .product-img {
+  filter: grayscale(30%);
+}
+
+/* --- Empty / loading states --- */
+.loading-message,
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--color-tan);
+  font-size: 1.1rem;
+  grid-column: 1 / -1;
 }
 
 

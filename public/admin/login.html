@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login — Heartwood Lumber Co.</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+
+<body class="admin-body">
+  <div class="admin-login-card">
+    <h1><span class="logo-icon">⚒</span> Heartwood Admin</h1>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required autofocus>
+      </div>
+      <p class="error-message" id="errorMsg"></p>
+      <button type="submit" class="btn btn-primary btn-full">Log In</button>
+    </form>
+    <a href="/" class="back-link">← Back to site</a>
+  </div>
+  <script src="/admin/admin.js"></script>
+</body>
+
+</html>

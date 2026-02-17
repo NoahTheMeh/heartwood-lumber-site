@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Dashboard — Heartwood Lumber Co.</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+
+<body class="admin-body">
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <a href="/" class="nav-logo"><span class="logo-icon">⚒</span> Heartwood Admin</a>
+      <div class="admin-header-actions">
+        <a href="/" class="admin-link">View Site</a>
+        <button id="logoutBtn" class="btn btn-sm btn-outline-dark">Log Out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="admin-container">
+
+      <!-- ===== INVENTORY SECTION ===== -->
+      <div class="admin-toolbar">
+        <h1>Inventory</h1>
+        <button id="addItemBtn" class="btn btn-primary">+ Add Item</button>
+      </div>
+
+      <div class="admin-table-wrap">
+        <table class="admin-table" id="inventoryTable">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="inventoryBody">
+            <tr>
+              <td colspan="6" class="empty-row">Loading...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ===== CATEGORIES SECTION ===== -->
+      <div class="admin-toolbar" style="margin-top: 60px;">
+        <h2 class="admin-section-title">Categories</h2>
+        <button id="addCategoryBtn" class="btn btn-primary">+ Add Category</button>
+      </div>
+
+      <div class="admin-table-wrap">
+        <table class="admin-table" id="categoriesTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Slug</th>
+              <th>Items</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="categoriesBody">
+            <tr>
+              <td colspan="4" class="empty-row">Loading...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Modal for create/edit ITEM -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle">Add Item</h2>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <form id="itemForm">
+        <input type="hidden" id="itemId" name="id">
+        <div class="form-group">
+          <label for="itemName">Name *</label>
+          <input type="text" id="itemName" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="itemDescription">Description</label>
+          <textarea id="itemDescription" name="description" rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="itemCategory">Category</label>
+            <select id="itemCategory" name="category">
+              <!-- Populated dynamically from /api/categories -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="itemPrice">Price ($)</label>
+            <input type="number" id="itemPrice" name="price" step="0.01" min="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="itemImage">Upload Image</label>
+          <input type="file" id="itemImage" name="image" accept="image/*">
+        </div>
+        <div class="form-group">
+          <label for="itemImageUrl">Or Image URL</label>
+          <input type="url" id="itemImageUrl" name="image_url" placeholder="https://...">
+        </div>
+        <div class="form-group form-check">
+          <label>
+            <input type="checkbox" id="itemInStock" name="in_stock" checked>
+            In Stock
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-cancel" id="modalCancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal for create/edit CATEGORY -->
+  <div class="modal-overlay" id="categoryModal">
+    <div class="modal-content" style="max-width: 420px;">
+      <div class="modal-header">
+        <h2 id="categoryModalTitle">Add Category</h2>
+        <button class="modal-close" id="categoryModalClose">&times;</button>
+      </div>
+      <form id="categoryForm">
+        <input type="hidden" id="categoryId">
+        <div class="form-group">
+          <label for="categoryName">Name *</label>
+          <input type="text" id="categoryName" required placeholder="e.g. Hardwood Flooring">
+        </div>
+        <div class="form-group">
+          <label for="categorySlug">Slug *</label>
+          <input type="text" id="categorySlug" required placeholder="e.g. hardwood-flooring" pattern="[a-z0-9\-]+">
+          <small style="color: var(--color-tan); font-size: 0.8rem;">Lowercase letters, numbers, and hyphens only</small>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-cancel" id="categoryModalCancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/admin/admin.js"></script>
+</body>
+
+</html>

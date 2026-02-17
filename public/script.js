@@ -54,10 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // --- Scroll-triggered fade-in animations ---
-  const animateElements = document.querySelectorAll(
-    '.product-card, .gallery-item, .testimonial-card, .process-step, .about-grid, .faq-item'
-  );
-
   const fadeObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -67,7 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.15 });
 
-  animateElements.forEach(el => {
+  // Observe static elements
+  document.querySelectorAll(
+    '.gallery-item, .testimonial-card, .process-step, .about-grid, .faq-item'
+  ).forEach(el => {
     el.classList.add('fade-in');
     fadeObserver.observe(el);
   });
@@ -155,5 +154,100 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Contact form is not yet connected.\n\nReplace YOUR_EMAIL@example.com in index.html with the real email address.');
     }
   });
+
+
+  // --- Dynamic Inventory ---
+  const inventoryGrid = document.getElementById('inventoryGrid');
+  const inventoryFilters = document.getElementById('inventoryFilters');
+
+  if (inventoryGrid) {
+    loadCategories();
+    loadInventory('');
+  }
+
+  async function loadCategories() {
+    try {
+      const res = await fetch('/api/categories');
+      const categories = await res.json();
+      renderFilterButtons(categories);
+    } catch { /* filter buttons just won't appear */ }
+  }
+
+  function renderFilterButtons(categories) {
+    const allBtn = document.createElement('button');
+    allBtn.className = 'filter-btn active';
+    allBtn.dataset.category = '';
+    allBtn.textContent = 'All';
+    inventoryFilters.appendChild(allBtn);
+
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.dataset.category = cat.slug;
+      btn.textContent = cat.name;
+      inventoryFilters.appendChild(btn);
+    });
+
+    inventoryFilters.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      inventoryFilters.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loadInventory(btn.dataset.category);
+    });
+  }
+
+  async function loadInventory(category) {
+    inventoryGrid.innerHTML = '<p class="loading-message">Loading inventory...</p>';
+    try {
+      let url = '/api/inventory';
+      if (category) url += '?category=' + encodeURIComponent(category);
+      const res = await fetch(url);
+      const items = await res.json();
+      renderInventoryItems(items);
+    } catch {
+      inventoryGrid.innerHTML = '<p class="empty-state">Unable to load inventory. Please try again later.</p>';
+    }
+  }
+
+  function renderInventoryItems(items) {
+    if (items.length === 0) {
+      inventoryGrid.innerHTML = '<p class="empty-state">No items found in this category.</p>';
+      return;
+    }
+
+    inventoryGrid.innerHTML = items.map(item => `
+      <div class="product-card ${item.in_stock ? '' : 'out-of-stock'}">
+        ${item.image_url
+          ? `<img src="${escapeAttr(item.image_url)}" alt="${escapeAttr(item.name)}" class="product-img" loading="lazy">`
+          : '<div class="product-img" style="background:var(--color-sand);display:flex;align-items:center;justify-content:center;color:var(--color-tan);font-size:0.9rem;">No Image</div>'
+        }
+        <div class="product-info">
+          <h3>${escapeHtml(item.name)}</h3>
+          <p>${escapeHtml(item.description)}</p>
+          <div class="product-price">$${Number(item.price).toFixed(2)}</div>
+          <span class="stock-badge ${item.in_stock ? 'in-stock' : 'out-of-stock'}">
+            ${item.in_stock ? 'In Stock' : 'Out of Stock'}
+          </span>
+        </div>
+      </div>
+    `).join('');
+
+    // Re-observe new cards for fade-in animation
+    inventoryGrid.querySelectorAll('.product-card').forEach(el => {
+      el.classList.add('fade-in');
+      fadeObserver.observe(el);
+    });
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
+  }
+
+  function escapeAttr(str) {
+    return (str || '').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
 
 });
