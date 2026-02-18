@@ -9,7 +9,7 @@ const db = require('../db/database');
 // --- Multer config for image uploads ---
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const dir = path.join(__dirname, '..', 'uploads');
+    const dir = path.join(__dirname, '..', 'data', 'uploads');
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     cb(null, dir);
   },

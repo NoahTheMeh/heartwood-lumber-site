@@ -36,7 +36,7 @@ app.use('/admin', adminRoutes);
 
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'data', 'uploads')));
 
 // API routes
 app.use('/api', apiRoutes);
