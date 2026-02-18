@@ -343,7 +343,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hasFile) {
       formData.append('image', fileInput.files[0]);
     } else {
-      formData.append('image_url', document.getElementById('itemImageUrl').value);
+      const imageUrlVal = document.getElementById('itemImageUrl').value;
+      if (imageUrlVal || !id) {
+        formData.append('image_url', imageUrlVal);
+      }
     }
 
     try {
