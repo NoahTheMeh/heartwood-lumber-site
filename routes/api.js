@@ -4,7 +4,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const { requireAuth } = require('../middleware/auth');
-const db = require('../db/database');
+const db = require('../lib/database');
 
 // --- Multer config for image uploads ---
 const storage = multer.diskStorage({

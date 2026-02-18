@@ -4,7 +4,7 @@ const session = require('express-session');
 const path = require('path');
 const apiRoutes = require('./routes/api');
 const adminRoutes = require('./routes/admin');
-const { initDatabase } = require('./db/database');
+const { initDatabase } = require('./lib/database');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
