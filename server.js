@@ -42,5 +42,5 @@ app.use('/uploads', express.static(path.join(__dirname, 'data', 'uploads')));
 app.use('/api', apiRoutes);
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Heartwood Lumber server running at http://localhost:${PORT}`);
+  console.log(`Sawmill Solutions server running at http://localhost:${PORT}`);
 });

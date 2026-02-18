@@ -32,6 +32,60 @@ const upload = multer({
   }
 });
 
+// ========== CONTACT FORM ==========
+
+const nodemailer = require('nodemailer');
+
+let transporter;
+if (process.env.SMTP_HOST) {
+  transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: parseInt(process.env.SMTP_PORT || '587'),
+    secure: process.env.SMTP_SECURE === 'true',
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS
+    }
+  });
+}
+
+router.post('/contact', async (req, res) => {
+  const { name, email, phone, project, message, _honey } = req.body;
+
+  // Honeypot spam check
+  if (_honey) return res.json({ success: true });
+
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: 'Name, email, and message are required' });
+  }
+
+  if (!transporter) {
+    return res.status(503).json({ error: 'Email is not configured yet' });
+  }
+
+  try {
+    await transporter.sendMail({
+      from: `"Sawmill Solutions Website" <${process.env.SMTP_USER}>`,
+      to: 'sawmillsolutionsllc@gmail.com',
+      replyTo: email,
+      subject: `New inquiry from ${name} — ${project || 'General'}`,
+      text: [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        phone ? `Phone: ${phone}` : null,
+        project ? `Project Type: ${project}` : null,
+        '',
+        `Message:`,
+        message
+      ].filter(Boolean).join('\n')
+    });
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Email send error:', err);
+    res.status(500).json({ error: 'Failed to send message. Please try again.' });
+  }
+});
+
 // ========== PUBLIC ENDPOINTS ==========
 
 // GET /api/inventory — list all items

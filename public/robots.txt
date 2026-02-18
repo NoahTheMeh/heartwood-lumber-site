@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://noahthemeh.github.io/heartwood-lumber-site/sitemap.xml
+Sitemap: https://sawmillsolutions.com/sitemap.xml

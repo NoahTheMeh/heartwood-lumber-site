@@ -143,15 +143,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // --- Contact form handling ---
-  const form = document.querySelector('.contact-form');
+  const form = document.getElementById('contactForm');
 
-  form.addEventListener('submit', (e) => {
-    const action = form.getAttribute('action');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
 
-    // If email isn't configured, prevent submission and show a message
-    if (action.includes('YOUR_EMAIL@example.com')) {
-      e.preventDefault();
-      alert('Contact form is not yet connected.\n\nReplace YOUR_EMAIL@example.com in index.html with the real email address.');
+    try {
+      const data = Object.fromEntries(new FormData(form));
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await res.json();
+
+      if (res.ok) {
+        form.reset();
+        btn.textContent = 'Message Sent!';
+        setTimeout(() => { btn.textContent = originalText; btn.disabled = false; }, 3000);
+      } else {
+        alert(result.error || 'Something went wrong. Please try again.');
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
+    } catch {
+      alert('Unable to send message. Please email us directly at sawmillsolutionsllc@gmail.com');
+      btn.textContent = originalText;
+      btn.disabled = false;
     }
   });
 
